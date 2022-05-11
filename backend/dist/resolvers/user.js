@@ -70,7 +70,7 @@ let UserResolver = class UserResolver {
         if (!req.session.userId) {
             return null;
         }
-        const userId = parseInt(req.session.id);
+        const userId = req.session.userId;
         return User_1.User.findOneBy({ id: userId });
     }
     forgotPassword(email, { redis }) {

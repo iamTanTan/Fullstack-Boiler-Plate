@@ -58,14 +58,25 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     }));
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield (0, type_graphql_1.buildSchema)({ resolvers: [user_1.UserResolver] }),
+        context: ({ req, res }) => ({
+            req,
+            res,
+            redis,
+        }),
+        csrfPrevention: true,
     });
     yield apolloServer.start();
     apolloServer.applyMiddleware({
         app,
-        cors: { origin: "http://localhost:3000" },
+        cors: {
+            origin: [
+                "http://localhost:3000",
+                "https://studio.apollographql.com",
+            ],
+        },
     });
     app.listen(4000, () => {
-        console.log("Server started on localhost:4000");
+        console.log("Server started on localhost:4000/graphql");
     });
 });
 main().catch((err) => {

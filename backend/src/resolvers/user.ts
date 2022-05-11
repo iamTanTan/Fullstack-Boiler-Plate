@@ -56,7 +56,7 @@ export class UserResolver {
             return null;
         }
 
-        const userId = parseInt(req.session.id);
+        const userId = req.session.userId;
         return User.findOneBy({ id: userId });
     }
 

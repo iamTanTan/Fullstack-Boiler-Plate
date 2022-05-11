@@ -61,15 +61,26 @@ const main = async () => {
     // use express with graphql and apollo server
     const apolloServer = new ApolloServer({
         schema: await buildSchema({ resolvers: [UserResolver] }),
+        context: ({ req, res }) => ({
+            req,
+            res,
+            redis,
+        }),
+        csrfPrevention: true,
     });
     await apolloServer.start();
     // apply apollo middleware to express to create graphql endpoint on server
     apolloServer.applyMiddleware({
         app,
-        cors: { origin: "http://localhost:3000" },
+        cors: {
+            origin: [
+                "http://localhost:3000",
+                "https://studio.apollographql.com",
+            ],
+        },
     });
     app.listen(4000, () => {
-        console.log("Server started on localhost:4000");
+        console.log("Server started on localhost:4000/graphql");
     });
 };
 
