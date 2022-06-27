@@ -4,9 +4,11 @@ import {
     Column,
     CreateDateColumn,
     Entity,
+    OneToMany,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from "typeorm";
+import { Quiz } from "./Quiz";
 
 // Attach ObjectType and Field() decorators to interact with graphql and typeorm
 // Note: Make sure to add to entities within typeorm createConnection
@@ -28,6 +30,10 @@ export class User extends BaseEntity {
     @Field(() => String)
     @Column({ unique: true })
     email!: string;
+
+    // relations
+    @OneToMany(() => Quiz, (quiz) => quiz.creator)
+    quizzes: Quiz[];
 
     @Field(() => String)
     @CreateDateColumn()

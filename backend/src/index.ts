@@ -78,6 +78,7 @@ const main = async () => {
                 "https://studio.apollographql.com",
             ],
         },
+        path: "/graphql",
     });
     app.listen(4000, () => {
         console.log("Server started on localhost:4000/graphql");

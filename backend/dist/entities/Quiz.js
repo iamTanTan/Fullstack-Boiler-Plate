@@ -9,11 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Quiz = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
-const Quiz_1 = require("./Quiz");
-let User = class User extends typeorm_1.BaseEntity {
+const User_1 = require("./User");
+let Quiz = class Quiz extends typeorm_1.BaseEntity {
     constructor() {
         super(...arguments);
         this.updatedAt = new Date();
@@ -23,38 +23,45 @@ __decorate([
     (0, type_graphql_1.Field)(() => type_graphql_1.Int),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+], Quiz.prototype, "id", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)({ unique: true }),
-    __metadata("design:type", String)
-], User.prototype, "username", void 0);
-__decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "password", void 0);
+], Quiz.prototype, "category", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.ManyToOne)(() => User_1.User, (user) => user.quizzes),
+    __metadata("design:type", User_1.User)
+], Quiz.prototype, "creator", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)({ unique: true }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], Quiz.prototype, "title", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Quiz_1.Quiz, (quiz) => quiz.creator),
-    __metadata("design:type", Array)
-], User.prototype, "quizzes", void 0);
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Quiz.prototype, "description", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => type_graphql_1.Int),
+    (0, typeorm_1.Column)({ type: "int", default: 0 }),
+    __metadata("design:type", Number)
+], Quiz.prototype, "points", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
-], User.prototype, "createdAt", void 0);
+], Quiz.prototype, "createdAt", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Object)
-], User.prototype, "updatedAt", void 0);
-User = __decorate([
+], Quiz.prototype, "updatedAt", void 0);
+Quiz = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()
-], User);
-exports.User = User;
-//# sourceMappingURL=User.js.map
+], Quiz);
+exports.Quiz = Quiz;
+//# sourceMappingURL=Quiz.js.map

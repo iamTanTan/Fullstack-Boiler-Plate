@@ -74,6 +74,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                 "https://studio.apollographql.com",
             ],
         },
+        path: "/graphql",
     });
     app.listen(4000, () => {
         console.log("Server started on localhost:4000/graphql");
